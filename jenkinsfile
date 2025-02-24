@@ -1,46 +1,24 @@
 pipeline {
     agent any
-
-    environment {
-        GIT_CREDENTIALS_ID = 'github-credentials'  // Update this with your Jenkins credential ID
-        GIT_REPO = 'https://github.com/Cohe-rent/coherent.git'  // Replace with correct repo URL
-        GIT_BRANCH = 'main'  // Change if using a different branch
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
-                script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${GIT_BRANCH}"]],
-                        userRemoteConfigs: [[
-                            url: GIT_REPO,
-                            credentialsId: GIT_CREDENTIALS_ID
-                        ]]
-                    ])
-                }
+                git branch: 'main', url: 'https://github.com/Cohe-rent/coherent.git'
             }
         }
-
         stage('Build') {
             steps {
                 echo "Building project..."
-                sh 'echo Build Successful!'  // Replace with actual build command
             }
         }
-
         stage('Test') {
             steps {
                 echo "Running tests..."
-                sh 'echo Tests Passed!'  // Replace with actual test command
             }
         }
-
         stage('Deploy') {
             steps {
                 echo "Deploying application..."
-                sh 'echo Deployment Completed!'  // Replace with actual deploy command
             }
         }
     }
