@@ -2,16 +2,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: coherent
-  namespace: argocd  # Ensure this is the correct namespace where ArgoCD is installed
+  namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/Cohe-rent/coherent.git
-    targetRevision: HEAD
-    path: manifests  # Change to the correct folder inside your repo
   destination:
+    namespace: coho
     server: https://kubernetes.default.svc
-    namespace: coho  # The namespace where your app will be deployed
+  source:
+    repoURL: https://github.com/Cohe-rent/coherent.git  # Update if needed
+    path: coherent-new  # Make sure this matches your repo structure
+    targetRevision: HEAD
+  project: default
   syncPolicy:
     automated:
       prune: true
