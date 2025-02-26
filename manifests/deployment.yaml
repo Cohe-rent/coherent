@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coherent-app
+  namespace: coho
+  labels:
+    app: coherent-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coherent-app
+  template:
+    metadata:
+      labels:
+        app: coherent-app
+    spec:
+      containers:
+        - name: coherent-app
+          image: your-docker-image:latest  # Change to your actual image
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENVIRONMENT
+              value: "production"
